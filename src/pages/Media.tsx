@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { mediaFiles, getMediaByCategory, getMediaPath, type MediaFile } from "@/data/media"
+import { mediaFiles, getMediaByCategory, getMediaPath, getMediaSource, isYouTubeUrl, getYouTubeEmbedUrl, type MediaFile } from "@/data/media"
 import { Image, Video, Code, Smartphone, X, Play } from "lucide-react"
 
 export function Media() {
@@ -138,24 +138,43 @@ export function Media() {
                   <div className="relative aspect-video overflow-hidden">
                     {media.type === "photo" ? (
                       <img
-                        src={getMediaPath(media.fileName, media.category, media.type)}
+                        src={getMediaSource(media)}
                         alt={media.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
                       />
                     ) : (
                       <div className="relative w-full h-full bg-slate-800">
-                        <video
-                          src={getMediaPath(media.fileName, media.category, media.type)}
-                          className="w-full h-full object-cover"
-                          muted
-                          playsInline
-                        />
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/20 transition-colors">
-                          <div className="rounded-full bg-cyan-500/80 p-4 group-hover:bg-cyan-500 transition-colors">
-                            <Play className="h-8 w-8 text-white ml-1" fill="white" />
+                        {media.isExternal && isYouTubeUrl(getMediaSource(media)) ? (
+                          <iframe
+                            src={getYouTubeEmbedUrl(getMediaSource(media))}
+                            className="w-full h-full"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            title={media.title}
+                          />
+                        ) : media.isExternal ? (
+                          <video
+                            src={getMediaSource(media)}
+                            className="w-full h-full object-cover"
+                            muted
+                            playsInline
+                          />
+                        ) : (
+                          <video
+                            src={getMediaSource(media)}
+                            className="w-full h-full object-cover"
+                            muted
+                            playsInline
+                          />
+                        )}
+                        {!media.isExternal || !isYouTubeUrl(getMediaSource(media)) ? (
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/20 transition-colors">
+                            <div className="rounded-full bg-cyan-500/80 p-4 group-hover:bg-cyan-500 transition-colors">
+                              <Play className="h-8 w-8 text-white ml-1" fill="white" />
+                            </div>
                           </div>
-                        </div>
+                        ) : null}
                       </div>
                     )}
                     <div className="absolute top-2 right-2">
@@ -274,7 +293,7 @@ export function Media() {
                 {selectedMedia.type === "photo" ? (
                   <div className="relative rounded-lg overflow-hidden border border-cyan-500/20">
                     <img
-                      src={getMediaPath(selectedMedia.fileName, selectedMedia.category, selectedMedia.type)}
+                      src={getMediaSource(selectedMedia)}
                       alt={selectedMedia.title}
                       className="w-full h-auto"
                       loading="lazy"
@@ -282,12 +301,24 @@ export function Media() {
                   </div>
                 ) : (
                   <div className="relative rounded-lg overflow-hidden border border-cyan-500/20 bg-black">
-                    <video
-                      src={getMediaPath(selectedMedia.fileName, selectedMedia.category, selectedMedia.type)}
-                      controls
-                      className="w-full h-auto"
-                      autoPlay
-                    />
+                    {selectedMedia.isExternal && isYouTubeUrl(getMediaSource(selectedMedia)) ? (
+                      <div className="aspect-video">
+                        <iframe
+                          src={getYouTubeEmbedUrl(getMediaSource(selectedMedia))}
+                          className="w-full h-full"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          title={selectedMedia.title}
+                        />
+                      </div>
+                    ) : (
+                      <video
+                        src={getMediaSource(selectedMedia)}
+                        controls
+                        className="w-full h-auto"
+                        autoPlay
+                      />
+                    )}
                   </div>
                 )}
                 {selectedMedia.description && (

@@ -35,7 +35,7 @@ export function Footer() {
               <img
                 src="/neuronovaLogo.png"
                 alt="NeuroNova Logo"
-                className="h-8 w-auto"
+                className="h-8 w-8 rounded-full object-cover"
               />
               <h3 className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
                 NeuroNova

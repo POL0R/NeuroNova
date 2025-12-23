@@ -39,7 +39,7 @@ export function Navbar() {
             <img
               src="/neuronovaLogo.png"
               alt="NeuroNova Logo"
-              className="h-10 w-auto"
+              className="h-10 w-10 rounded-full object-cover"
             />
             <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
               NeuroNova
