@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Users, Code, Palette, Heart, BookOpen, UserCheck } from "lucide-react"
+import { Code, Palette, Heart, BookOpen, UserCheck } from "lucide-react"
 
 export function About() {
   const teamCategories = [

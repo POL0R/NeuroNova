@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { mediaFiles, getMediaByCategory, getMediaPath, getMediaSource, isYouTubeUrl, getYouTubeEmbedUrl, type MediaFile } from "@/data/media"
+import { mediaFiles, getMediaByCategory, getMediaSource, isYouTubeUrl, getYouTubeEmbedUrl, type MediaFile } from "@/data/media"
 import { Image, Video, Code, Smartphone, X, Play } from "lucide-react"
 
 export function Media() {

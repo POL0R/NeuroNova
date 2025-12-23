@@ -2,7 +2,6 @@ import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { TeamMember } from "@/data/team"
-import { ExternalLink } from "lucide-react"
 
 interface TeamCardProps {
   member: TeamMember
