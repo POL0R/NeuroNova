@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Large video files - using external hosting (Google Drive)
+public/media/development/videos/*.mp4
+public/media/final-app/videos/*.mp4
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
